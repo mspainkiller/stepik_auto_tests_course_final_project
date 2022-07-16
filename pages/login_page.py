@@ -12,7 +12,8 @@ class LoginPage(BasePage):
         # реализуйте проверку на корректный url адрес
         current_url = self.browser.current_url
         login_string = "login"
-        assert str(current_url).find(login_string) >= 0, f"Login page URL does not contain '{login_string}'"
+        assert str(current_url).find(login_string) >= 0, \
+            f"Login page URL '{current_url}' does not contain '{login_string}' "
 
     def should_be_login_form(self):
         # реализуйте проверку, что есть форма логина
