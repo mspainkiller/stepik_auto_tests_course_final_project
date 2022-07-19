@@ -7,6 +7,14 @@ class ProductPage(BasePage):
         add_to_basket_btn = self.browser.find_element(*ProductPageLocators.ADD_TO_BASKET_BTN)
         add_to_basket_btn.click()
 
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def should_disappear_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should disappear"
+
     def should_be_message_about_adding_product_to_basket(self):
         added_product_name = self.browser.find_element(*ProductPageLocators.ADDED_PRODUCT_NAME).text
         product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
