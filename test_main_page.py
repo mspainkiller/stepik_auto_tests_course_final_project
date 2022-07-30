@@ -8,6 +8,7 @@ from .pages.basket_page import BasketPage
 @pytest.mark.login_guest
 class TestLoginFromMainPage:
     def test_guest_can_go_to_login_page(self, browser):
+        # test check that login page can be opened from main page
         link = "http://selenium1py.pythonanywhere.com/"
         page = MainPage(browser, link)
         page.open()
@@ -17,6 +18,7 @@ class TestLoginFromMainPage:
         login_page.should_be_login_page()
 
     def test_guest_cant_see_product_in_basket_opened_from_main_page(self, browser):
+        # test check that empty basket page can be opened from main page
         link = "http://selenium1py.pythonanywhere.com/"
         page = MainPage(browser, link)
         page.open()
