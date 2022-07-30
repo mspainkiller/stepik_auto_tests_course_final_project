@@ -87,3 +87,40 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket_page.should_be_message_about_empty_basket()
 
 
+def test_register_user(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.go_to_login_page()
+    login_page = LoginPage(browser, browser.current_url)
+    email = str(time.time()) + "@fakemail.org"
+    password = str(time.time())
+    login_page.register_new_user(email, password)
+
+
+@pytest.mark.login_user
+class TestUserAddToBasketFromProductPage:
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        link = "https://selenium1py.pythonanywhere.com/ru/accounts/login/"
+        page = LoginPage(browser, link)
+        page.open()
+        email = str(time.time()) + "@fakemail.org"
+        password = str(time.time())
+        page.register_new_user(email, password)
+        page.should_be_authorized_user()
+
+    def test_user_can_add_product_to_basket(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+        page = ProductPage(browser, link)
+        page.open()
+        page.add_product_to_basket()
+        page.should_be_message_about_adding_product_to_basket()
+        page.should_be_correct_basket_counter()
+
+    def test_user_cant_see_success_message(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_not_be_success_message()
+
