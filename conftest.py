@@ -1,8 +1,8 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options as Chrome_Options
 from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.options import Options as FF_Options
 from selenium.webdriver.common.by import By
 
 
@@ -22,12 +22,12 @@ def browser(request):
     browser = None
     if browser_name == "chrome":
         print("\nstart chrome browser for test..")
-        options_chrome = Options()
+        options_chrome = Chrome_Options()
         options_chrome.add_experimental_option('prefs', {'intl.accept_languages': user_language})
         browser = webdriver.Chrome(chrome_path, options=options_chrome)
     elif browser_name == "firefox":
         print("\nstart firefox browser for test..")
-        options_ff = Options()
+        options_ff = FF_Options()
         options_ff.add_experimental_option('prefs', {'intl.accept_languages': user_language})
         browser = webdriver.Firefox(service=firefox_path, options=options_ff)
     else:
